@@ -17,7 +17,7 @@ public class EmpleadoRepositoryImpl implements EmpleadoRepository {
 
     @Override
     public Empleado findByUsuario(String usuario) {
-        return null;
+        return empleados.get(usuario);
     }
 
     @Override
