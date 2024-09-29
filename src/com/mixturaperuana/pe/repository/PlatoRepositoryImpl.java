@@ -25,7 +25,9 @@ public class PlatoRepositoryImpl implements PlatoRepository {
 
     @Override
     public Plato findById(int idPlato) throws PlatoNoEncontradoException {
-        return null;
+        Plato plato = platos.get(idPlato);
+        if (plato == null) {        throw new PlatoNoEncontradoException("El plato con ID " + idPlato + " no existe.");    }
+        return plato;
     }
 
     @Override
