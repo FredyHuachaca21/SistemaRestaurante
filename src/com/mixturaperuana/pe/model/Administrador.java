@@ -1,16 +1,18 @@
 package com.mixturaperuana.pe.model;
 
+
 import com.mixturaperuana.pe.enums.Rol;
 
-public class Administrador extends Empleado{
+import java.time.LocalDate;
+
+public class Administrador extends Empleado {
     private int nivelAcceso;
+    private String departamento;
 
-    public Administrador(String usuario, String contrasena, int idEmpleado, Rol rol, double salario, int nivelAcceso) {
-        super(usuario, contrasena, idEmpleado, rol, salario);
+    public Administrador(int idEmpleado, String usuario, String contrasena, String nombre, String apellido,
+                         String email, double salario, LocalDate fechaContratacion, int nivelAcceso, String departamento) {
+        super(idEmpleado, usuario, contrasena, nombre, apellido, email, Rol.ADMINISTRADOR, salario, fechaContratacion);
         this.nivelAcceso = nivelAcceso;
-    }
-
-    public int getNivelAcceso() {
-        return nivelAcceso;
+        this.departamento = departamento;
     }
 }

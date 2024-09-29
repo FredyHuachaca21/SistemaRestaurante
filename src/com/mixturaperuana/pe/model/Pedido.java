@@ -1,38 +1,78 @@
 package com.mixturaperuana.pe.model;
 
-import com.mixturaperuana.pe.enums.EstadoPedido;
 
+import com.mixturaperuana.pe.enums.EstadoPedido;
+import com.mixturaperuana.pe.enums.MetodoPago;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Pedido {
 
     private static int contadorPedidos = 1;
-
-    private int idPedido;
+    private String idPedido;
     private Cliente cliente;
     private List<Plato> platos;
     private EstadoPedido estado;
     private Empleado registradoPor;
     private boolean paraLlevar;
-    private String direccion;
+    private String direccionEntrega;
     private int tiempoEntrega;
+    private LocalDateTime fechaPedido;
+    private double total;
+    private MetodoPago metodoPago;
+    private boolean pagado;
+    private double montoPagado;
+    private double vuelto;
+    private boolean consumoLocal;
 
-    public Pedido(Cliente cliente, List<Plato> platos, Empleado registradoPor, boolean paraLlevar, String direccion, int tiempoEntrega) {
-        this.idPedido = contadorPedidos++;
+    public Pedido(Cliente cliente, List<Plato> platos, Empleado registradoPor, boolean paraLlevar, String direccionEntrega, int tiempoEntrega) {
+        this.idPedido = generarIdUnico(cliente);
         this.cliente = cliente;
         this.platos = platos;
         this.estado = EstadoPedido.REGISTRADO;
         this.registradoPor = registradoPor;
         this.paraLlevar = paraLlevar;
-        this.direccion = direccion;
+        this.direccionEntrega = direccionEntrega;
         this.tiempoEntrega = tiempoEntrega;
+        this.fechaPedido = LocalDateTime.now();
+        this.total = calcularTotal();
+        this.pagado = false;
+        this.consumoLocal = !paraLlevar;
     }
 
-    public int getIdPedido() {
+    private String generarIdUnico(Cliente cliente) {
+        String iniciales = obtenerIniciales(cliente.getNombre());
+        String numeroSecuencia = String.format("%04d", contadorPedidos++);
+        return iniciales + numeroSecuencia;
+    }
+
+    private String obtenerIniciales(String nombre) {
+        StringBuilder iniciales = new StringBuilder();
+        for (String parte : nombre.split(" ")) {
+            if (!parte.isEmpty()) {
+                iniciales.append(parte.charAt(0));
+            }
+        }
+        return iniciales.toString().toUpperCase();
+    }
+
+    private double calcularTotal() {
+        return platos.stream().mapToDouble(Plato::getPrecio).sum();
+    }
+
+    public void realizarPago(MetodoPago metodoPago, double montoPagado) {
+        this.metodoPago = metodoPago;
+        this.montoPagado = montoPagado;
+        this.vuelto = montoPagado - total;
+        this.pagado = true;
+    }
+
+    public String getIdPedido() {
         return idPedido;
     }
 
-    public void setIdPedido(int idPedido) {
+    public void setIdPedido(String idPedido) {
         this.idPedido = idPedido;
     }
 
@@ -76,12 +116,12 @@ public class Pedido {
         this.paraLlevar = paraLlevar;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getDireccionEntrega() {
+        return direccionEntrega;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setDireccionEntrega(String direccionEntrega) {
+        this.direccionEntrega = direccionEntrega;
     }
 
     public int getTiempoEntrega() {
@@ -90,5 +130,57 @@ public class Pedido {
 
     public void setTiempoEntrega(int tiempoEntrega) {
         this.tiempoEntrega = tiempoEntrega;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public MetodoPago getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(MetodoPago metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
+    public boolean isPagado() {
+        return pagado;
+    }
+
+    public void setPagado(boolean pagado) {
+        this.pagado = pagado;
+    }
+
+    public LocalDateTime getFechaPedido() {
+        return fechaPedido;
+    }
+
+    public double getMontoPagado() {
+        return montoPagado;
+    }
+
+    public void setMontoPagado(double montoPagado) {
+        this.montoPagado = montoPagado;
+    }
+
+    public double getVuelto() {
+        return vuelto;
+    }
+
+    public void setVuelto(double vuelto) {
+        this.vuelto = vuelto;
+    }
+
+    public boolean isConsumoLocal() {
+        return consumoLocal;
+    }
+
+    public void setConsumoLocal(boolean consumoLocal) {
+        this.consumoLocal = consumoLocal;
     }
 }
