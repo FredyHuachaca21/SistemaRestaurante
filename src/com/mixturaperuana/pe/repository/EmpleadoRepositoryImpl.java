@@ -27,6 +27,6 @@ public class EmpleadoRepositoryImpl implements EmpleadoRepository {
 
     @Override
     public void save(Empleado empleado) {
-
+        empleados.put(empleado.getUsuario(), empleado);
     }
 }
