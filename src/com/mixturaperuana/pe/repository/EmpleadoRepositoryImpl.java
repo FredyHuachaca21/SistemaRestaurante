@@ -4,6 +4,7 @@ package com.mixturaperuana.pe.repository;
 import com.mixturaperuana.pe.data.DataEmpleados;
 import com.mixturaperuana.pe.model.Empleado;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class EmpleadoRepositoryImpl implements EmpleadoRepository {
 
     @Override
     public List<Empleado> findAll() {
-        return List.of();
+        return new ArrayList<>(empleados.values());
     }
 
     @Override
