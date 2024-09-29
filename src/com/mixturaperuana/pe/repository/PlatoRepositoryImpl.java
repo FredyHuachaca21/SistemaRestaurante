@@ -5,6 +5,7 @@ import com.mixturaperuana.pe.data.DataPlatos;
 import com.mixturaperuana.pe.exception.PlatoNoEncontradoException;
 import com.mixturaperuana.pe.model.Plato;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class PlatoRepositoryImpl implements PlatoRepository {
 
     @Override
     public List<Plato> findAll() {
-        return List.of();
+        return new ArrayList<>(platos.values());
     }
 
     @Override
