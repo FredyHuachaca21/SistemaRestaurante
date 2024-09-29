@@ -29,6 +29,6 @@ public class PlatoRepositoryImpl implements PlatoRepository {
 
     @Override
     public void save(Plato plato) {
-
+        platos.put(plato.getIdPlato(), plato);
     }
 }
