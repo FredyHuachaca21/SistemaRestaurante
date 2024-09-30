@@ -49,7 +49,9 @@ public class PedidoServiceImpl implements IPedidoService {
 
     @Override
     public List<Pedido> obtenerPedidosPendientes() {
-        return List.of();
+        return pedidoRepository.findAll().stream()
+                .filter(p -> p.getEstado() != EstadoPedido.ENTREGADO && p.getEstado() != EstadoPedido.CANCELADO)
+                .collect(Collectors.toList());
     }
 
     @Override
