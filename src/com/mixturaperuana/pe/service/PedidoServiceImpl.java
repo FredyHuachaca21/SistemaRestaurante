@@ -21,7 +21,9 @@ public class PedidoServiceImpl implements IPedidoService {
 
     @Override
     public Pedido crearPedido(Cliente cliente, List<Plato> platos, Empleado registradoPor, boolean paraLlevar, String direccion, int tiempoEntrega) {
-        return null;
+        Pedido pedido = new Pedido(cliente, platos, registradoPor, paraLlevar, direccion, tiempoEntrega);
+        pedidoRepository.save(pedido);
+        return pedido;
     }
 
     @Override
