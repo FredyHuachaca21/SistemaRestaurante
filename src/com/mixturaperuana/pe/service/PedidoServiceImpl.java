@@ -112,6 +112,16 @@ public class PedidoServiceImpl implements IPedidoService {
 
     @Override
     public double calcularTiempoEntregaPromedio() {
-        return 0;
+        List<Pedido> pedidosParaLlevar = pedidoRepository.findAll().stream()
+                .filter(Pedido::isParaLlevar)
+                .toList();
+
+        if (pedidosParaLlevar.isEmpty()) {
+            return 0;
+
+        }return pedidosParaLlevar.stream()
+                .mapToInt(Pedido::getTiempoEntrega)
+                .average()
+                .orElse(0);;
     }
 }
