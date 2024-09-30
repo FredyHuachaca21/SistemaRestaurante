@@ -41,7 +41,7 @@ public class PedidoServiceImpl implements IPedidoService {
 
     @Override
     public List<Pedido> obtenerPedidosPorMesero(Mesero mesero) {
-        return List.of();
+        return pedidoRepository.findByRegistradoPor(mesero);
     }
 
     @Override
