@@ -18,7 +18,7 @@ public class PlatoServiceImpl implements IPlatoService {
 
     @Override
     public List<Plato> obtenerPlatosDisponibles() {
-        return platoRepository.findAll().stream().filter(Plato::isDisponible)            .collect(Collectors.toList());
+        return platoRepository.findAll().stream().filter(Plato::isDisponible).collect(Collectors.toList());
     }
 
     @Override
