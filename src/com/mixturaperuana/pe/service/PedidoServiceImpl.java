@@ -96,7 +96,12 @@ public class PedidoServiceImpl implements IPedidoService {
 
     @Override
     public Map<Empleado, Long> obtenerEmpleadosConMasPedidos() {
-        return pedidoRepository.findAll().stream().collect(Collectors.groupingBy(Pedido::getRegistradoPor,Collectors.counting())).entrySet().stream().sorted(Map.Entry.<Empleado, Long>comparingByValue().reversed()).limit(5).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+        return pedidoRepository.findAll().stream().
+                collect(Collectors.groupingBy(Pedido::getRegistradoPor,Collectors.counting()))
+                .entrySet().stream()
+                .sorted(Map.Entry.<Empleado, Long>comparingByValue().reversed())
+                .limit(5)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
 
     @Override
