@@ -33,12 +33,12 @@ public class PedidoServiceImpl implements IPedidoService {
 
     @Override
     public Pedido obtenerPedidoPorId(String idPedido) throws PedidoNoEncontradoException {
-        return null;
+        return pedidoRepository.findById(idPedido);
     }
 
     @Override
     public List<Pedido> obtenerTodosPedidos() {
-        return List.of();
+        return pedidoRepository.findAll();
     }
 
     @Override
