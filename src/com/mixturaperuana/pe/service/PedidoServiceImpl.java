@@ -10,6 +10,7 @@ import com.mixturaperuana.pe.repository.PedidoRepository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class PedidoServiceImpl implements IPedidoService {
     private PedidoRepository pedidoRepository;
@@ -66,7 +67,9 @@ public class PedidoServiceImpl implements IPedidoService {
 
     @Override
     public Map<MetodoPago, Long> obtenerEstadisticasMetodosPago() {
-        return Map.of();
+        return pedidoRepository.findAll().stream()
+                .filter(p -> p.getMetodoPago() != null)
+                .collect(Collectors.groupingBy(Pedido::getMetodoPago, Collectors.counting()));
     }
 
     @Override
