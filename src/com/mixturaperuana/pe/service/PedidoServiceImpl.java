@@ -31,22 +31,26 @@ public class PedidoServiceImpl implements IPedidoService {
     }
 
     private boolean puedeActualizarEstado(Empleado empleado, EstadoPedido estadoActual, EstadoPedido nuevoEstado) {
-        if (empleado instanceof Administrador) {return true;}
+        if (empleado instanceof Administrador) {
+            return true;
+        }
         switch (estadoActual) {
             case REGISTRADO:
                 return (empleado instanceof Mesero) && (nuevoEstado == EstadoPedido.CONFIRMADO || nuevoEstado == EstadoPedido.CANCELADO);
             case CONFIRMADO:
                 return (empleado instanceof Cajero) && nuevoEstado == EstadoPedido.PAGADO;
             case PAGADO:
-                return (empleado instanceof AsistenteCocina || empleado instanceof Chef) &&nuevoEstado == EstadoPedido.EN_PREPARACION;
+                return (empleado instanceof AsistenteCocina || empleado instanceof Chef) && nuevoEstado == EstadoPedido.EN_PREPARACION;
             case EN_PREPARACION:
-                return (empleado instanceof AsistenteCocina || empleado instanceof Chef) &&nuevoEstado == EstadoPedido.LISTO_PARA_RECOGER;
+                return (empleado instanceof AsistenteCocina || empleado instanceof Chef) && nuevoEstado == EstadoPedido.LISTO_PARA_RECOGER;
             case LISTO_PARA_RECOGER:
                 return (empleado instanceof Mesero) && nuevoEstado == EstadoPedido.EN_CAMINO || nuevoEstado == EstadoPedido.ENTREGADO;
             case EN_CAMINO:
                 return (empleado instanceof Mesero) && nuevoEstado == EstadoPedido.ENTREGADO;
             default:
-                return false;}}
+                return false;
+        }
+    }
 
     @Override
     public Pedido obtenerPedidoPorId(String idPedido) throws PedidoNoEncontradoException {
