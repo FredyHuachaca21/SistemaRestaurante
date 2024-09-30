@@ -8,8 +8,10 @@ import com.mixturaperuana.pe.exception.PedidoNoEncontradoException;
 import com.mixturaperuana.pe.model.*;
 import com.mixturaperuana.pe.repository.PedidoRepository;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class PedidoServiceImpl implements IPedidoService {
     private PedidoRepository pedidoRepository;
@@ -94,7 +96,7 @@ public class PedidoServiceImpl implements IPedidoService {
 
     @Override
     public Map<Empleado, Long> obtenerEmpleadosConMasPedidos() {
-        return Map.of();
+        return pedidoRepository.findAll().stream().collect(Collectors.groupingBy(Pedido::getRegistradoPor,Collectors.counting())).entrySet().stream().sorted(Map.Entry.<Empleado, Long>comparingByValue().reversed()).limit(5).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
 
     @Override
