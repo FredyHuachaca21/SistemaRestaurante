@@ -36,7 +36,7 @@ public class PedidoServiceImpl implements IPedidoService {
 
     @Override
     public List<Pedido> obtenerTodosPedidos() {
-        return List.of();
+        return pedidoRepository.findAll();
     }
 
     @Override
