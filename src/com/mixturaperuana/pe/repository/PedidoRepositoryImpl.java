@@ -44,6 +44,8 @@ public class PedidoRepositoryImpl implements PedidoRepository {
 
     @Override
     public List<Pedido> findByRegistradoPor(Empleado empleado) {
-        return List.of();
+        return pedidos.values().stream()
+                .filter(p -> p.getRegistradoPor().equals(empleado))
+                .collect(Collectors.toList());
     }
 }
