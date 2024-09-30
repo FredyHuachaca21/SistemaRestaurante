@@ -23,6 +23,6 @@ public class PlatoServiceImpl implements IPlatoService {
 
     @Override
     public Plato obtenerPlatoPorId(int idPlato) throws PlatoNoEncontradoException {
-        return null;
+        return platoRepository.findById(idPlato);
     }
 }
