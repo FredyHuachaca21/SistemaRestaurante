@@ -124,6 +124,6 @@ public class PedidoServiceImpl implements IPedidoService {
         }return pedidosParaLlevar.stream()
                 .mapToInt(Pedido::getTiempoEntrega)
                 .average()
-                .orElse(0);;
+                .orElse(0);
     }
 }
