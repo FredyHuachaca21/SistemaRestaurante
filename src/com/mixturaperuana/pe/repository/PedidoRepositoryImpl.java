@@ -7,8 +7,10 @@ import com.mixturaperuana.pe.exception.PedidoNoEncontradoException;
 import com.mixturaperuana.pe.model.Empleado;
 import com.mixturaperuana.pe.model.Pedido;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class PedidoRepositoryImpl implements PedidoRepository {
 
@@ -30,12 +32,12 @@ public class PedidoRepositoryImpl implements PedidoRepository {
 
     @Override
     public List<Pedido> findAll() {
-        return List.of();
+        return new ArrayList<>(pedidos.values());
     }
 
     @Override
     public List<Pedido> findByEstado(EstadoPedido estado) {
-        return List.of();
+        return pedidos.values().stream().filter(p -> p.getEstado() == estado).collect(Collectors.toList());
     }
 
     @Override
