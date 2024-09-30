@@ -100,7 +100,9 @@ public class PedidoServiceImpl implements IPedidoService {
 
     @Override
     public Map<MetodoPago, Long> obtenerEstadisticasMetodosPago() {
-        return Map.of();
+        return pedidoRepository.findAll().stream()
+                .filter(p -> p.getMetodoPago() != null)
+                .collect(Collectors.groupingBy(Pedido::getMetodoPago, Collectors.counting()));
     }
 
     @Override
