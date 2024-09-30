@@ -6,6 +6,7 @@ import com.mixturaperuana.pe.model.Plato;
 import com.mixturaperuana.pe.repository.PlatoRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PlatoServiceImpl implements IPlatoService {
 
@@ -17,7 +18,7 @@ public class PlatoServiceImpl implements IPlatoService {
 
     @Override
     public List<Plato> obtenerPlatosDisponibles() {
-        return List.of();
+        return platoRepository.findAll().stream().filter(Plato::isDisponible)            .collect(Collectors.toList());
     }
 
     @Override
