@@ -16,11 +16,16 @@ public class EmpleadoServiceImpl implements IEmpleadoService {
 
     @Override
     public Empleado login(String usuario, String contrasena) throws UsuarioNoEncontradoException {
-        return null;
+        Empleado empleado = empleadoRepository.findByUsuario(usuario);
+        if (empleado != null && empleado.getContrasena().equals(contrasena)) {
+            return empleado;
+        } else {
+            throw new UsuarioNoEncontradoException("Credenciales inválidas.");
+        }
     }
 
     @Override
     public List<Empleado> getAllEmpleados() {
-        return List.of();
+        return empleadoRepository.findAll();
     }
 }
