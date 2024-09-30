@@ -53,7 +53,10 @@ public class PedidoServiceImpl implements IPedidoService {
 
     @Override
     public double calcularTotalVentas() {
-        return 0;
+        return pedidoRepository.findAll().stream()
+                .filter(p -> p.getEstado() == EstadoPedido.ENTREGADO)
+                .mapToDouble(Pedido::getTotal)
+                .sum();
     }
 
     @Override
