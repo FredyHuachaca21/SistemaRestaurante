@@ -22,12 +22,14 @@ public class PedidoRepositoryImpl implements PedidoRepository {
 
     @Override
     public void save(Pedido pedido) {
-
+        pedidos.put(pedido.getIdPedido(), pedido);
     }
 
     @Override
     public Pedido findById(String idPedido) throws PedidoNoEncontradoException {
-        return null;
+        Pedido pedido = pedidos.get(idPedido);
+        if (pedido == null) { throw new PedidoNoEncontradoException("El pedido con ID " + idPedido + " no existe.");    }
+        return pedido;
     }
 
     @Override
